@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a note</title>
+</head>
+<body>
+<form action="#" th:action="@{/notes/create}" th:object="${newNote}" method="post">
+    <div class="validationError" th:if="${#fields.hasErrors('*')}">
+        <p class="validationError">
+            Please correct you input data
+        </p>
+    </div>
+    <label for="header">Header</label>
+    <br/>
+    <input type="text" th:field="*{header}" id="header" placeholder="Enter header of a note here">
+    <br/>
+
+    <label for="text">Text</label>
+    <br/>
+    <p class="validationError" th:each="err : ${#fields.errors('text')}" th:text="${err}"></p>
+    <input type="text" th:field="*{text}" id="text" placeholder="Enter your note here">
+    <br/>
+    <input type="submit" value="Create a note">
+</form>
+</body>
+</html>

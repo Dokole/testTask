@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>List of notes</title>
+</head>
+<body>
+<div th:switch="${notesList}">
+    <h2 th:case="null">Notes doesn't exist!</h2>
+    <div th:case="*">
+        <h2>Notes</h2>
+        <p><a href="/notes/create">Create new note</a></p>
+        <form>
+            <input type="text" placeholder="Search.." name="search">
+            <input type="checkbox" name="fields" value="header"/>
+            <span>Search in headers</span>
+            <input type="checkbox" name="fields" value="text"/>
+            <span>Search in texts</span>
+            <button type="submit">Submit</button>
+        </form>
+
+        <table th:each="note : ${notesList}" cellspacing="2" border="1" cellpadding="5" width="800">
+            <tr>
+                <th>Time:</th>
+                <td th:text="${note.time}"></td>
+            </tr>
+            <tr th:switch="${note.header}">
+                <th>Note:</th>
+                <td th:case="''"><a th:href="@{/notes/{id}(id=${note.id})}" th:text="${note.text}"></a></td>
+                <td th:case="null"><a th:href="@{/notes/{id}(id=${note.id})}" th:text="${note.text}"></a></td>
+                <td th:case="*"><a th:href="@{/notes/{id}(id=${note.id})}" th:text="${note.header}"></a></td>
+            </tr>
+            <tr>
+                <th><a th:href="@{/notes/{id}/delete(id=${note.id})}"
+                       onclick="return confirm('Are you sure you want to delete this note?');">Delete</a></th>
+            </tr>
+            <br/>
+        </table>
+    </div>
+</div>
+</body>
+</html>
