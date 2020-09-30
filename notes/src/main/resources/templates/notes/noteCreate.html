@@ -13,13 +13,13 @@
     </div>
     <label for="header">Header</label>
     <br/>
-    <input type="text" th:field="*{header}" id="header" placeholder="Enter header of a note here">
+    <input type="text" th:field="*{header}" id="header" placeholder="Enter header of a note here" size="40">
     <br/>
 
     <label for="text">Text</label>
     <br/>
     <p class="validationError" th:each="err : ${#fields.errors('text')}" th:text="${err}"></p>
-    <input type="text" th:field="*{text}" id="text" placeholder="Enter your note here">
+    <textarea th:field="*{text}" id="text" placeholder="Enter your note here" rows="4" cols="40"></textarea>
     <br/>
     <input type="submit" value="Create a note">
 </form>
